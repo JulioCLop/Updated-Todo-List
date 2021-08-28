@@ -1,4 +1,5 @@
-import React, { useState,useEffect } from "react";
+import React from "react";
+import useTodoState from "./useTodoState";
 import TodoList from "./TodoList";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -6,55 +7,12 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import TodoForm from "./TodoForm";
-import { v4 as uuidv4 } from 'uuid';
 
 function TodoApp() {
-   const initialTodo = JSON.parse(window.localStorage.getItem('todos') || '[]');
-   // const initialTodo = [
-   //    {
-   //       id: 1,
-   //       task: "clean car",
-   //       completed: false,
-   //    },
-   //    {
-   //       id: 2,
-   //       task: "clean house",
-   //       completed: true,
-   //    },
-   //    {
-   //       id: 3,
-   //       task: "buy pizza",
-   //       completed: false,
-   //    },
-   // ];
+   const initialTodos = [{ id: 1, task: "Go Ahead And Try My Todo-App", completed: false }];
     
+   const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(initialTodos);
 
-   const [todos, setTodos] = useState(initialTodo);
-
-   useEffect(() => {
-      window.localStorage.setItem('todos', JSON.stringify(todos))
-   }, [todos]);
-      
-   
-   const addTodo = (newTodoText) => {
-      setTodos([...todos, { id: uuidv4(), task: newTodoText, completed: false }]);
-   };
-    
-    const removeTodo = todoId => {
-        const updatedTodos = todos.filter(todo => todo.id !== todoId);
-        setTodos(updatedTodos);
-    }
-    const toggleTodo = todoId => {
-        const updatedTodos = todos.map(todo =>
-            todo.id === todoId ? { ...todo, completed: !todo.completed } : todo);
-        setTodos(updatedTodos)
-    };
-   const editTodo =( todoId,newTask) => {
-      const updatedTodos = todos.map( todo =>
-            todo.id === todoId ?{...todo,task:  newTask } : todo
-      )
-      setTodos(updatedTodos)
-   };
   
     return (
      
