@@ -7,13 +7,13 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import TodoForm from "./TodoForm";
+import { TodoProvider } from './contexts/todos.context';
+
 
 function TodoApp() {
-   const initialTodos = [{ id: 1, task: "Go Ahead And Try My Todo-App", completed: false }];
-    
-   const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(initialTodos);
+   
 
-  
+
     return (
      
       <Paper
@@ -29,15 +29,11 @@ function TodoApp() {
             <Typography color="inherit">Todo with Hooks </Typography>
          </AppBar>
             <Grid container justify="center" style={{ marginTop: "1rem" }}>
-            <Grid item xs={11} md={8} lg={4}>
-               <TodoForm addTodo={addTodo} />
-                   <TodoList
-                       todos={todos}
-                        removeTodo={removeTodo}
-                   toggleTodo={toggleTodo}
-                   editTodo={editTodo}
-                   
-                   />
+             <Grid item xs={11} md={8} lg={4}>
+                <TodoProvider>
+                <TodoForm  />
+                <TodoList />
+                </TodoProvider>
             </Grid>
          </Grid>
       </Paper>
