@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 export default initialTodos => {
-
+ 
     const [todos, setTodos] = UseLocalStorageState("todos", initialTodos);
     
     return {
@@ -31,7 +31,5 @@ export default initialTodos => {
         
     }
 }
-
-
 
 
